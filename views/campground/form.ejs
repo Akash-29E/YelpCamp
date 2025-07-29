@@ -31,12 +31,12 @@
                                         value="<%= campground?campground.image:'' %>">
                                 </div>
 
-                                 <div class="mb-3">
+                                <div class="mb-3">
                                     <label for="price" class="mb-2">Campground Price:</label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="text" class="form-control" id="price"
-                                            aria-label="Amount" placeholder="0" name="price" value="<%= campground?campground.price:'' %>">
+                                        <input type="text" class="form-control" id="price" aria-label="Amount"
+                                            placeholder="0" name="price" value="<%= campground?campground.price:'' %>">
                                     </div>
                                 </div>
 
@@ -48,10 +48,15 @@
                                     <label for="description">Description</label>
                                 </div>
 
-                                <div class="mb-3"><button class="btn <%=campground?'btn-info text-light':'btn-success' %> "><%= campground?'Update Campground':'Create Campground' %></button></div>
-                                <a href="/campgrounds"
-                                    class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">All
-                                    Campgrounds</a>
+                                <div class="mb-3"><button
+                                        class="btn <%=campground?'btn-info text-light':'btn-success' %> ">
+                                        <%= campground?'Update Campground':'Create Campground' %>
+                                    </button></div>
+                                <% if (campground){ %>
+                                    <a href="/campgrounds/<%=campground._id%>" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Back to Campground</a>
+                                    <% } else {%>
+                                        <a href="/campgrounds" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">All Campgrounds</a>
+                                        <% } %>
                         </form>
         </div>
 
