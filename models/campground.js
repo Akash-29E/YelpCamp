@@ -1,12 +1,28 @@
+const { string, required } = require('joi');
 const mongoose = require('mongoose');
-const {Schema, model} = mongoose;
+const { Schema, model } = mongoose;
 
 const CampGroundSchema = new Schema({
-    title: String,
-    price: Number,
-    image:String,
-    description: String,
-    location: String
+    title: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    image: {
+        type: String,
+        default: 'https://t4.ftcdn.net/jpg/15/83/21/39/360_F_1583213929_OxAxzK3C6njLJAahBdwq0Usa83iwS8FM.jpg'
+    },
+    description: {
+        type:String,
+        default: 'No Description Provided'    
+    },
+    location: {
+        type:String,
+        required: true
+    }
 });
 
 module.exports = model('Campground', CampGroundSchema);

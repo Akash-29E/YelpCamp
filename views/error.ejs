@@ -1,0 +1,17 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading"><%= status %> <%= message %></h4>
+                <p>Welcome to our error page!!
+                    Nothing too fancy, but it has a nice box and some info on what went wrong(most of the times!).
+                    Here are some lines which will take years for you to understand(unless you're a Dev).
+                    <br>
+                    <br>
+                    EY DEV! LOOK WHAT YOU DID:
+                </p>
+                <hr>
+                <p class="mb-0"><%= err.stack %></p>
+            </div>
+        </div>
+    </div>

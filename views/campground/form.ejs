@@ -5,30 +5,40 @@
         </h1>
         <div class="col-6 offset-md-3">
             <% if(campground){ %>
-                <form action="/campgrounds/<%=campground._id%>/edit?_method=PUT" method="POST">
+                <form action="/campgrounds/<%=campground._id%>/edit?_method=PUT" method="POST" class="validated-form"
+                    novalidate>
                     <% } else { %>
-                        <form action="/campgrounds/new" method="POST">
+                        <form action="/campgrounds/new" method="POST" class="validated-form" novalidate>
                             <% } %>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="title">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title"
+                                    <input class="form-control" type="text" id="title" name="campground[title]"
                                         placeholder="<%= campground?"":'Add Title' %>"
-                                        value="<%= campground?campground.title:'' %>">
+                                        value="<%= campground?campground.title:'' %>" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="location">Location</label>
-                                    <input class="form-control" type="text" id="location" name="location"
+                                    <input class="form-control" type="text" id="location" name="campground[location]"
                                         placeholder="<%= campground?"":'Add Location' %>"
-                                        value="<%= campground?campground.location:'' %>">
+                                        value="<%= campground?campground.location:'' %>" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="image">Image URL</label>
-                                    <input class="form-control" type="text" id="image" name="image"
+                                    <input class="form-control" type="text" id="image" name="campground[image]"
                                         placeholder="<%= campground?"":'Add Image URL' %>"
-                                        value="<%= campground?campground.image:'' %>">
+                                        value="<%= campground?campground.image:'' %>" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -36,15 +46,22 @@
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
                                         <input type="text" class="form-control" id="price" aria-label="Amount"
-                                            placeholder="0" name="price" value="<%= campground?campground.price:'' %>">
+                                            placeholder="0" name="campground[price]" value="<%= campground?campground.price:'' %>"
+                                            required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea name="description" class="form-control"
+                                    <textarea name="campground[description]" class="form-control"
                                         placeholder="<%= campground?"":'Enter your description here' %>"
-                                        id="description"
-                                        style="height: 150px"><%= campground?campground.description:'' %></textarea>
+                                        id="description" style="height: 150px"
+                                        required><%= campground?campground.description:'' %></textarea>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                     <label for="description">Description</label>
                                 </div>
 
@@ -53,11 +70,34 @@
                                         <%= campground?'Update Campground':'Create Campground' %>
                                     </button></div>
                                 <% if (campground){ %>
-                                    <a href="/campgrounds/<%=campground._id%>" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Back to Campground</a>
+                                    <a href="/campgrounds/<%=campground._id%>"
+                                        class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Back
+                                        to Campground</a>
                                     <% } else {%>
-                                        <a href="/campgrounds" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">All Campgrounds</a>
+                                        <a href="/campgrounds"
+                                            class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">All
+                                            Campgrounds</a>
                                         <% } %>
                         </form>
         </div>
-
     </div>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.validated-form')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
