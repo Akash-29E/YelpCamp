@@ -22,7 +22,11 @@ const CampGroundSchema = new Schema({
     location: {
         type:String,
         required: true
-    }
+    },
+    reviews:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
 });
 
 module.exports = model('Campground', CampGroundSchema);
