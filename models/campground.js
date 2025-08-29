@@ -3,6 +3,15 @@ const mongoose = require('mongoose');
 const Review = require('./review');
 const { Schema, model } = mongoose;
 
+const ImageSchema = new Schema({
+    url:String,
+    filename: String,
+});
+
+ImageSchema.virtual('thumbnail').get(function(){
+    return this.url.replace('/upload', '/upload/w_200');
+})
+
 const CampGroundSchema = new Schema({
     title: {
         type: String,
@@ -12,16 +21,13 @@ const CampGroundSchema = new Schema({
         type: Number,
         required: true,
     },
-    image: {
-        type: String,
-        default: 'https://t4.ftcdn.net/jpg/15/83/21/39/360_F_1583213929_OxAxzK3C6njLJAahBdwq0Usa83iwS8FM.jpg'
-    },
+    image: [ImageSchema],
     description: {
-        type:String,
-        default: 'No Description Provided'    
+        type: String,
+        default: 'No Description Provided'
     },
     location: {
-        type:String,
+        type: String,
         required: true
     },
     author: {
@@ -29,16 +35,16 @@ const CampGroundSchema = new Schema({
         ref: 'User',
     }
     ,
-    reviews:[{
+    reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }]
 });
 
-CampGroundSchema.post('findOneAndDelete', async function(doc){
-    if(doc){
+CampGroundSchema.post('findOneAndDelete', async function (doc) {
+    if (doc) {
         await Review.deleteMany({
-            _id:{
+            _id: {
                 $in: doc.reviews
             }
         })
