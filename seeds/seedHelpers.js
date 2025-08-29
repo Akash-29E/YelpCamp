@@ -43,3 +43,9 @@ module.exports.places = [
     'Hollow'
 ]
 
+module.exports.userIds = [
+    '68afbf88351bf6042a9cb895',
+    '68afbf94351bf6042a9cb8ba',
+    '68afbfa4351bf6042a9cb8df'
+]
+

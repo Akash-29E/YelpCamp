@@ -1,19 +1,30 @@
 <% layout ('layouts/boilerplate') %>
 
-    <form action="/login" method="POST" class="needs-validation" novalidate>
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="username" class="form-control" id="username" aria-describedby="usernameHelp" name="username" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="h1">Login</div>
+            <form action="/login" method="POST" class="needs-validation mt-5" novalidate>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="username" class="form-control" id="username" aria-describedby="usernameHelp"
+                        name="username" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" autocomplete="on"
+                        required>
+                </div>
+                <% if(link){ %>
+                    <input type="hidden" id="link" name="link" value="<%=link%>">
+                    <% } %>
+                        <button type="submit" class="btn btn-primary">Login</button>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" autocomplete="on" required>
+        <div class="col-6">
+            <img src="/icons/LoginPage_Image.svg" class="m-lg-2" alt="" style="width: 400px; height: 400px;" srcset="">
         </div>
-        <% if(link){ %>
-        <input type="hidden" id="link" name="link" value="<%=link%>">
-        <% } %>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+    </div>
