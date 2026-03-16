@@ -19,7 +19,8 @@ const LocalStratergy = require('passport-local');
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 
-mongo.connect('mongodb://localhost:27017/yelp-camp');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+mongo.connect(dbUrl);
 
 const db = mongo.connection;
 db.once('open', () => {
@@ -35,7 +36,7 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionConfig = {
-    secret: 'agoodsecret!',
+    secret: process.env.SECRET || 'agoodsecret!',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -90,6 +91,7 @@ app.all(/(.*)/, (req, res, next) => {
     next(new ExpressError('Page not found!', 404));
 });
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000!')
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}!`)
 });
